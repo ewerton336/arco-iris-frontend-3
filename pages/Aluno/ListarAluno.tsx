@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { AlunoService, Aluno } from "@/auto";
 import { useRouter } from "next/router";
+import Link from "next/link"
+import AddIcon from "@mui/icons-material/Add";
 
 import {
+
+  Button,
   Table,
   TableContainer,
   TableHead,
@@ -50,6 +54,15 @@ const ListarAlunos = () => {
   return (
     <div>
       <h1>Alunos</h1>
+      <Button
+      variant="contained"
+      color="primary"
+      startIcon={<AddIcon />}
+      component={Link}
+      href="/Aluno/CadastrarAluno"
+    >
+      Cadastrar Novo Aluno
+    </Button>
       <TableContainer component={Paper}>
         <Table>
           <TableHead>
@@ -57,7 +70,7 @@ const ListarAlunos = () => {
               <TableCell>ID</TableCell>
               <TableCell>Nome</TableCell>
               <TableCell>Matrícula</TableCell>
-              <TableCell>Ações</TableCell> {/* Nova coluna para botões */}
+              <TableCell>Ações</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -71,7 +84,6 @@ const ListarAlunos = () => {
               color="primary"
               aria-label="Editar"
               onClick={() => {
-                // Redirecione para a página EditarAluno com o ID do aluno
                 router.push(`./EditarAluno/${aluno.id}`);
               }}
             >
