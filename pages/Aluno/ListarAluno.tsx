@@ -21,7 +21,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 
 const ListarAlunos = () => {
-  const router = useRouter(); // Inicialize o useRouter
+  const router = useRouter();
   const [alunos, setAlunos] = useState<Aluno[]>([]);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);

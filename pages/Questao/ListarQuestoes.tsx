@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { QuestaoService, Questao, Alternativa } from "@/auto";
+import { QuestaoService, Questao } from "@/auto";
 import {
   Typography,
   List,
@@ -7,17 +7,36 @@ import {
   ListItemText,
   Paper,
   Container,
+  IconButton,
+  Grid,
+  Divider,
+  Box,
 } from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
+import { useRouter } from "next/router";
 
 const ListarQuestoes = () => {
   const [questoes, setQuestoes] = useState<Questao[]>([]);
+  const router = useRouter();
 
   useEffect(() => {
-    // Recupere todas as questões da API
     QuestaoService.getApiQuestoes().then((res) => {
       setQuestoes(res);
     });
   }, []);
+
+  const editarQuestao = (id: number) => {
+    router.push(`/Questao/EditarQuestao/${id}`);
+  };
+
+  const excluirQuestao = (id: number) => {
+    QuestaoService.deleteApiQuestoes(id).then(() => {
+      setQuestoes((prevQuestoes) =>
+        prevQuestoes.filter((questao) => questao.id !== id)
+      );
+    });
+  };
 
   return (
     <Container>
@@ -26,26 +45,48 @@ const ListarQuestoes = () => {
       </Typography>
       <Paper elevation={3}>
         <List>
-          {questoes.map((questao) => (
-            <ListItem key={questao.id}>
-              <ListItemText
-                primary={`Questão ID: ${questao.id}`}
-                secondary={`Enunciado: ${questao.enunciado || "N/A"}`}
-              />
-              <List>
-                {questao.alternativas?.map((alternativa) => (
-                  <ListItem key={alternativa.id}>
+          {questoes.map((questao, index) => (
+            <React.Fragment key={questao.id}>
+              {index > 0 && <Divider />}
+              <ListItem alignItems="center">
+                <Grid container spacing={2}>
+                  <Grid item xs={12} sm={6}> 
                     <ListItemText
-                      primary={`Alternativa ID: ${alternativa.id}`}
-                      secondary={`Descrição: ${alternativa.descricao || "N/A"}`}
+                      secondary={`Questão ID: ${questao.id}`}
+                      primary={`Enunciado: ${questao.enunciado || "N/A"}`}
                     />
-                    <ListItemText
-                      primary={`Correta: ${alternativa.correta ? "Sim" : "Não"}`}
-                    />
-                  </ListItem>
-                ))}
-              </List>
-            </ListItem>
+                  </Grid>
+                  <Grid item xs={12} sm={3}>
+                    {questao.alternativas?.map((alternativa) => (
+                      <Box key={alternativa.id}>
+                        <ListItemText
+                         //  secondary={`Alternativa ID: ${alternativa.id}`}
+                          primary={`Descrição da alternativa: ${alternativa.descricao || "N/A"}`}
+                        />
+                        <ListItemText
+                          secondary={`Correta: ${alternativa.correta ? "Sim" : "Não"}`}
+                        />
+                          <Divider />
+                      </Box>
+                    ))}
+                  </Grid>
+                </Grid>
+                <IconButton
+                  color="primary"
+                  aria-label="Editar"
+                  onClick={() => questao.id && editarQuestao(questao.id)}
+                >
+                  <EditIcon />
+                </IconButton>
+                <IconButton
+                  color="secondary"
+                  aria-label="Remover"
+                  onClick={() => questao.id && excluirQuestao(questao.id)}
+                >
+                  <DeleteIcon />
+                </IconButton>
+              </ListItem>
+            </React.Fragment>
           ))}
         </List>
       </Paper>

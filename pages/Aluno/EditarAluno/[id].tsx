@@ -30,10 +30,8 @@ const EditarAluno = () => {
   const [aluno, setAluno] = useState<Aluno | null>(null);
   const [error, setError] = useState<string | null>(null);
 
-  // Carregar dados do aluno no início
   useEffect(() => {
     if (id) {
-      // Substitua isso pelo seu método de busca de dados específico
       AlunoService.getApiAlunos1(id).then((data) => {
         setAluno(data);
       }).catch((error) => {

@@ -1,16 +1,39 @@
-import React from "react";
-import { AppBar, Toolbar, Typography, Button, IconButton, Menu, MenuItem } from "@mui/material";
+import React, { useState } from "react";
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  Button,
+  IconButton,
+  Menu,
+  MenuItem,
+} from "@mui/material";
 import Link from "next/link";
 
 const Navbar = () => {
-  const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
+  const [anchorElAluno, setAnchorElAluno] = useState<null | HTMLElement>(null);
+  const [anchorElQuestoes, setAnchorElQuestoes] = useState<null | HTMLElement>(
+    null
+  );
 
-  const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
+  const handleMenuOpenAluno = (
+    event: React.MouseEvent<HTMLElement>
+  ) => {
+    setAnchorElAluno(event.currentTarget);
   };
 
-  const handleMenuClose = () => {
-    setAnchorEl(null);
+  const handleMenuCloseAluno = () => {
+    setAnchorElAluno(null);
+  };
+
+  const handleMenuOpenQuestoes = (
+    event: React.MouseEvent<HTMLElement>
+  ) => {
+    setAnchorElQuestoes(event.currentTarget);
+  };
+
+  const handleMenuCloseQuestoes = () => {
+    setAnchorElQuestoes(null);
   };
 
   return (
@@ -19,30 +42,64 @@ const Navbar = () => {
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
           Aplicador de Questoes Arco Iris
         </Typography>
-        <div>
+        <div style={{ marginRight: "10px" }}>
           <Button color="inherit">
             <Link href="/">Home</Link>
           </Button>
-          <IconButton
-            edge="end"
-            color="inherit"
-            aria-label="menu"
-            onMouseEnter={handleMenuOpen} // Alteração para onMouseEnter
+
+          <div
+            onMouseEnter={handleMenuOpenAluno}
+            onMouseLeave={handleMenuCloseAluno}
+            style={{ display: "inline-block", verticalAlign: "middle" }}
           >
-            Aluno
-          </IconButton>
-          <Menu
-            anchorEl={anchorEl}
-            open={Boolean(anchorEl)}
-            onClose={handleMenuClose}
+            <IconButton
+              edge="end"
+              color="inherit"
+              aria-label="menu"
+            >
+              Aluno
+            </IconButton>
+            <Menu
+              anchorEl={anchorElAluno}
+              open={Boolean(anchorElAluno)}
+              onClose={handleMenuCloseAluno}
+            >
+              <MenuItem onClick={handleMenuCloseAluno}>
+                <Link href="/Aluno/ListarAluno">Listar Alunos</Link>
+              </MenuItem>
+              <MenuItem onClick={handleMenuCloseAluno}>
+                <Link href="/Aluno/CadastrarAluno">Cadastrar Aluno</Link>
+              </MenuItem>
+            </Menu>
+          </div>
+        </div>
+
+        <div style={{ marginRight: "10px" }}>
+          <div
+            onMouseEnter={handleMenuOpenQuestoes}
+            onMouseLeave={handleMenuCloseQuestoes}
+            style={{ display: "inline-block", verticalAlign: "middle" }}
           >
-            <MenuItem onClick={handleMenuClose}>
-              <Link href="/Aluno/ListarAluno">Listar Alunos</Link>
-            </MenuItem>
-            <MenuItem onClick={handleMenuClose}>
-              <Link href="/Aluno/CadastrarAluno">Cadastrar Aluno</Link>
-            </MenuItem>
-          </Menu>
+            <IconButton
+              edge="end"
+              color="inherit"
+              aria-label="menu"
+            >
+              Questoes
+            </IconButton>
+            <Menu
+              anchorEl={anchorElQuestoes}
+              open={Boolean(anchorElQuestoes)}
+              onClose={handleMenuCloseQuestoes}
+            >
+              <MenuItem onClick={handleMenuCloseQuestoes}>
+                <Link href="/Questao/ListarQuestoes">Listar Questoies</Link>
+              </MenuItem>
+              <MenuItem onClick={handleMenuCloseQuestoes}>
+                <Link href="/Questao/CadastrarQuestao">Cadastrar Questao</Link>
+              </MenuItem>
+            </Menu>
+          </div>
         </div>
       </Toolbar>
     </AppBar>
