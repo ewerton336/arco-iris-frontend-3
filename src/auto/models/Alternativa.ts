@@ -3,12 +3,9 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { Questao } from './Questao';
-
 export type Alternativa = {
     id?: number;
     questoId?: number;
-    questao?: Questao;
     descricao?: string | null;
     correta?: boolean;
 };
