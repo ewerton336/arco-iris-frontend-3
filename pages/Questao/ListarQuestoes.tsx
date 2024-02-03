@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { QuestaoService, Questao } from "@/auto";
+import { QuestaoService, Questao } from "../../src/auto/index";
 import {
   Typography,
   List,

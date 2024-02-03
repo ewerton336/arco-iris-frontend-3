@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "openapi": "openapi -i swagger.json -o src/auto/"
+    "openapi": "openapi -i swagger.json -o src/auto/",
+    "openapi-api": "openapi --input https://localhost:44336/swagger/v1/swagger.json --output ./src/auto --name AppClient"
   },
   "dependencies": {
     "@emotion/react": "^11.11.3",

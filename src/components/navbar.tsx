@@ -12,9 +12,8 @@ import Link from "next/link";
 
 const Navbar = () => {
   const [anchorElAluno, setAnchorElAluno] = useState<null | HTMLElement>(null);
-  const [anchorElQuestoes, setAnchorElQuestoes] = useState<null | HTMLElement>(
-    null
-  );
+  const [anchorElQuestoes, setAnchorElQuestoes] = useState<null | HTMLElement>(null);
+  const [anchorElProva, setAnchorElProva] = useState<null | HTMLElement>(null);
 
   const handleMenuOpenAluno = (
     event: React.MouseEvent<HTMLElement>
@@ -34,6 +33,16 @@ const Navbar = () => {
 
   const handleMenuCloseQuestoes = () => {
     setAnchorElQuestoes(null);
+  };
+
+  const handleMenuOpenProva = (
+    event: React.MouseEvent<HTMLElement>
+  ) => {
+    setAnchorElProva(event.currentTarget);
+  };
+
+  const handleMenuCloseProva = () => {
+    setAnchorElProva(null);
   };
 
   return (
@@ -93,10 +102,35 @@ const Navbar = () => {
               onClose={handleMenuCloseQuestoes}
             >
               <MenuItem onClick={handleMenuCloseQuestoes}>
-                <Link href="/Questao/ListarQuestoes">Listar Questoies</Link>
+                <Link href="/Questao/ListarQuestoes">Listar Questoes</Link>
               </MenuItem>
               <MenuItem onClick={handleMenuCloseQuestoes}>
                 <Link href="/Questao/CadastrarQuestao">Cadastrar Questao</Link>
+              </MenuItem>
+            </Menu>
+          </div>
+        </div>
+
+        <div style={{ marginRight: "10px" }}>
+          <div
+            onMouseEnter={handleMenuOpenProva}
+            onMouseLeave={handleMenuCloseProva}
+            style={{ display: "inline-block", verticalAlign: "middle" }}
+          >
+            <IconButton
+              edge="end"
+              color="inherit"
+              aria-label="menu"
+            >
+              Provas
+            </IconButton>
+            <Menu
+              anchorEl={anchorElProva}
+              open={Boolean(anchorElProva)}
+              onClose={handleMenuCloseProva}
+            >
+              <MenuItem onClick={handleMenuCloseProva}>
+                <Link href="/Prova">Iniciar Prova</Link>
               </MenuItem>
             </Menu>
           </div>

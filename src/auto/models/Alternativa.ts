@@ -5,7 +5,7 @@
 
 export type Alternativa = {
     id?: number;
-    questoId?: number;
+    questaoId?: number;
     descricao?: string | null;
     correta?: boolean;
 };

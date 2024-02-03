@@ -193,6 +193,129 @@
         }
       }
     },
+    "/api/Provas/IniciarProva": {
+      "post": {
+        "tags": [
+          "Prova"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "integer",
+                "format": "int32"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "integer",
+                "format": "int32"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "type": "integer",
+                "format": "int32"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Prova"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Prova"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Prova"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Provas/GetProva/{id}": {
+      "get": {
+        "tags": [
+          "Prova"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Prova"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Prova"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Prova"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Provas/SubmeterProva": {
+      "post": {
+        "tags": [
+          "Prova"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Prova"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Prova"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Prova"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
     "/api/Questoes": {
       "get": {
         "tags": [
@@ -391,7 +514,7 @@
             "type": "integer",
             "format": "int32"
           },
-          "questoId": {
+          "questaoId": {
             "type": "integer",
             "format": "int32"
           },
@@ -423,6 +546,42 @@
         },
         "additionalProperties": false
       },
+      "Prova": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "alunoId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "aluno": {
+            "$ref": "#/components/schemas/Aluno"
+          },
+          "questoesRespostas": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/QuestaoResposta"
+            },
+            "nullable": true
+          },
+          "quantidadeAcertos": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "quantidadeErros": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "nota": {
+            "type": "number",
+            "format": "double"
+          }
+        },
+        "additionalProperties": false
+      },
       "Questao": {
         "type": "object",
         "properties": {
@@ -440,6 +599,41 @@
               "$ref": "#/components/schemas/Alternativa"
             },
             "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "QuestaoResposta": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "provaId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "prova": {
+            "$ref": "#/components/schemas/Prova"
+          },
+          "questaoId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "questao": {
+            "$ref": "#/components/schemas/Questao"
+          },
+          "alternativaEscolhidaId": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "alternativaEscolhida": {
+            "$ref": "#/components/schemas/Alternativa"
+          },
+          "correta": {
+            "type": "boolean"
           }
         },
         "additionalProperties": false
