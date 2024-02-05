@@ -11,7 +11,6 @@ const DetalhesProva = () => {
   useEffect(() => {
     const fetchProva = async () => {
       try {
-        // Verifica se id é uma string antes de chamar parseInt
         console.log(typeof id);
         if (typeof id === 'string') {
           const response = await ProvaService.getApiProvasGetProva(parseInt(id));

@@ -9,12 +9,12 @@ import {
   Select,
   MenuItem,
   Button,
-  SelectChangeEvent // Importe SelectChangeEvent
+  SelectChangeEvent
 } from '@mui/material';
 
 const ProvaIndex = () => {
     const [alunos, setAlunos] = useState<Aluno[]>([]);
-    const [alunoSelecionado, setAlunoSelecionado] = useState<string>(''); // Mantém como string
+    const [alunoSelecionado, setAlunoSelecionado] = useState<string>('');
     const router = useRouter();
 
     useEffect(() => {

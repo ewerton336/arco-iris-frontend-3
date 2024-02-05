@@ -41,15 +41,13 @@ const ProvaIndex = () => {
         }
     
         try {
-            // Substitua 'ProvaService.postApiProvasIniciarProva' pelo método correto conforme sua implementação
             const response = await ProvaService.postApiProvasIniciarProva(parseInt(alunoSelecionado));
-            const prova = response; // Assumindo que 'response.data' contém o objeto 'Prova'
+            const prova = response;
     
             console.log('Prova iniciada com sucesso:', prova);
     
 
             console.log('teste id de prova', prova.id)
-            // Verifica se a prova tem um 'id' antes de tentar o redirecionamento
             if (prova && prova.id) {
                 router.push(`/prova/detalhes/${prova.id}`);
             } else {
